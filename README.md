@@ -61,3 +61,5 @@ Removing items already rated by the user.
 Returning the top N highest-scoring items as recommendations.
 
 recommend_items(user_id=1, num_recommendations=3)
+
+OUTPUT:![Image](https://github.com/user-attachments/assets/a7f5d551-e240-4938-aa9e-c638072b9329)
