@@ -1,4 +1,16 @@
-This project implements a User-Based Collaborative Filtering recommendation engine using cosine similarity to find similar users and suggest items based on shared preferences. Collaborative filtering is a widely-used method in recommendation systems across platforms like Netflix, Amazon, and Spotify. It provides personalized recommendations by analyzing user behavior, without requiring any item-specific metadata.
+COMPANY : CODTECH IT SOLUTIONS
+
+NAME : PATEL SUNNY KANAKKUMAR
+
+INTERN ID : CT04DG881
+
+DOMAIN : MACHINE LEARNING
+
+DURATION : 4 WEEK
+
+MENTOR : NEELA SANTOSH
+
+DESCRIPTION OF TASK :This project implements a User-Based Collaborative Filtering recommendation engine using cosine similarity to find similar users and suggest items based on shared preferences. Collaborative filtering is a widely-used method in recommendation systems across platforms like Netflix, Amazon, and Spotify. It provides personalized recommendations by analyzing user behavior, without requiring any item-specific metadata.
 
   Objective
 The main goal is to recommend top-rated items to a user by identifying other users with similar rating patterns. The algorithm is designed to:
