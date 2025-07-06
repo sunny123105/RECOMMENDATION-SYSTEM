@@ -1,0 +1,43 @@
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
+
+#  Load the dataset
+df = pd.read_csv(r"C:\Users\HP\Downloads\realistic_ratings.csv")
+
+#  Create a user-item rating matrix
+user_item_matrix = df.pivot_table(index='userId', columns='itemId', values='rating').fillna(0)
+
+#   Compute user-user cosine similarity
+user_similarity = cosine_similarity(user_item_matrix)
+
+#   Convert similarity matrix to DataFrame for easy reading
+similarity_df = pd.DataFrame(user_similarity, index=user_item_matrix.index, columns=user_item_matrix.index)
+
+#   Define recommendation function
+def recommend_items(user_id, num_recommendations=3):
+    # Get similarity scores with other users
+    similar_users = similarity_df[user_id].sort_values(ascending=False)
+    similar_users = similar_users.drop(user_id)  # Remove self-similarity
+
+    # Weighted sum of ratings from similar users
+    weighted_scores = pd.Series(dtype=float)
+    
+    for sim_user, score in similar_users.items():
+        sim_user_ratings = user_item_matrix.loc[sim_user]
+        sim_user_ratings = sim_user_ratings[sim_user_ratings > 0]  # only rated items
+        weighted_scores = weighted_scores.add(sim_user_ratings * score, fill_value=0)
+
+    # Remove items the target user has already rated
+    already_rated = user_item_matrix.loc[user_id]
+    weighted_scores = weighted_scores.drop(already_rated[already_rated > 0].index, errors='ignore')
+    
+    # Sort recommendations
+    recommendations = weighted_scores.sort_values(ascending=False).head(num_recommendations)
+    return recommendations
+
+#   Example - Get top 3 recommendations for user 1
+user_id = 1
+recommendations = recommend_items(user_id=user_id, num_recommendations=3)
+
+print(f"\nTop recommendations for User {user_id}:\n")
+print(recommendations)
